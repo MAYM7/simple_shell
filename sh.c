@@ -1,6 +1,7 @@
 #include "maym.h"
 
 #define MAX_INPUT_SIZE 100
+int exit_command(const char *command);
 void execute_com(char *command);
 /**
  * main - a simple shell
@@ -20,6 +21,12 @@ int main(void)
 			break;
 		}
 		input[strcspn(input, "\n")] = 0;
+
+		if (exit_command(input))
+		{
+			printf("Exiting shell.\n");
+			break;
+		}
 
 		execute_com(input);
 	}
@@ -42,4 +49,13 @@ void execute_com(char *command)
 	{
 		fprintf(stderr, "Error: Command '%s' not found.\n", command);
 	}
+}
+/**
+ * exit_command - exit program.
+ * @command: the command.
+ * Return: always 0.
+ */
+int exit_command(const char *command)
+{
+	return (strcmp(command, "exit") == 0);
 }

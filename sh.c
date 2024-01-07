@@ -1,8 +1,6 @@
 #include "maym.h"
 
-#define MAX_INPUT_SIZE 100
 int exit_command(const char *command);
-void execute_com(char *command);
 /**
  * main - a simple shell
  * Return: always 0.
@@ -11,9 +9,16 @@ void execute_com(char *command);
 int main(void)
 {
 	char input[MAX_INPUT_SIZE];
+	char *args[MAX_ARGS];
+	int i;
+
+	signal(SIGINT, handle_signal);
 
 	while (1)
 	{
+		int background;
+		char *token;
+
 		printf("MAYM$ ");
 		if (fgets(input, MAX_INPUT_SIZE, stdin) == NULL)
 		{
@@ -27,29 +32,27 @@ int main(void)
 			printf("Exiting shell.\n");
 			break;
 		}
+		token = strtok(input, " ");
 
-		execute_com(input);
+		for (i = 0; token != NULL && i < MAX_ARGS - 1; i++)
+		{
+			args[i] = token;
+			token = strtok(NULL, " ");
+		}
+		args[i] = NULL;
+		background = 0;
+
+		if  (i > 0 && strcmp(args[i - 1], "&") == 0)
+		{
+			args[i - 1] = NULL;
+			background = 1;
+		}
+
+		execute_com(args, background);
 	}
 	return (0);
 }
-/**
- * execute_com - excute command.
- * @command: the command.
- */
 
-void execute_com(char *command)
-{
-	int status = system(command);
-
-	if (status == -1)
-	{
-		perror("Error executing command");
-	}
-	else if (status != 0)
-	{
-		fprintf(stderr, "Error: Command '%s' not found.\n", command);
-	}
-}
 /**
  * exit_command - exit program.
  * @command: the command.

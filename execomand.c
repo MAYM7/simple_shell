@@ -1,7 +1,8 @@
 #include "maym.h"
 /**
  * execute_com - excute command.
- * @command: the command.
+ * @args: the commands.
+ * @background: if wirking in background.
  */
 
 void execute_com(char *args[], int background)

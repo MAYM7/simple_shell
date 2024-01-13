@@ -19,7 +19,7 @@ int main(void)
 		int background;
 		char *token;
 
-		printf("MAYM$ ");
+		printf("#MAYM$ ");
 		if (fgets(input, MAX_INPUT_SIZE, stdin) == NULL)
 		{
 			printf("\nExiting shell.\n");

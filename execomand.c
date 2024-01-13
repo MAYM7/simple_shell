@@ -23,7 +23,6 @@ void execute_com(char *args[], int background)
 
 		execvp(args[0], args);
 
-		perror("Execvp failed");
 			exit(EXIT_FAILURE);
 	}
 	else

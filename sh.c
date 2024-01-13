@@ -22,7 +22,6 @@ int main(void)
 		printf("#MAYM$ ");
 		if (fgets(input, MAX_INPUT_SIZE, stdin) == NULL)
 		{
-			printf("\nExiting shell.\n");
 			break;
 		}
 		input[strcspn(input, "\n")] = 0;

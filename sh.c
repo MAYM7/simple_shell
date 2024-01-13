@@ -28,7 +28,6 @@ int main(void)
 
 		if (exit_command(input))
 		{
-			printf("Exiting shell.\n");
 			break;
 		}
 		token = strtok(input, " ");
